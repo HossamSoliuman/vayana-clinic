@@ -3,30 +3,30 @@
 @section('title', 'Add Service')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Add Service</h2>
-    <a href="{{ route('admin.services.index') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back</a>
+<div class="flex items-center justify-between mb-8">
+    <h2 class="text-2xl font-bold text-text">Add Service</h2>
+    <a href="{{ route('admin.services.index') }}" class="inline-flex items-center gap-2 px-4 py-2 border border-border text-text-muted rounded-lg hover:bg-surface-secondary transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</a>
 </div>
-<div class="card">
-    <div class="card-body">
+<div class="bg-surface rounded-xl border border-border">
+    <div class="p-6">
         <form action="{{ route('admin.services.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="row">
-                <div class="col-md-6 mb-3"><label class="form-label">Name (EN) *</label><input type="text" name="name_en" class="form-control" required></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Name (AR)</label><input type="text" name="name_ar" class="form-control"></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Slug</label><input type="text" name="slug" class="form-control"></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Icon (CSS class)</label><input type="text" name="icon" class="form-control" placeholder="bi bi-heart"></div>
-                <div class="col-md-12 mb-3"><label class="form-label">Description (EN)</label><textarea name="description_en" class="form-control" rows="3"></textarea></div>
-                <div class="col-md-12 mb-3"><label class="form-label">Description (AR)</label><textarea name="description_ar" class="form-control" rows="3"></textarea></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Image</label><input type="file" name="image" class="form-control" accept="image/*"></div>
-                <div class="col-md-3 mb-3"><label class="form-label">Display Order</label><input type="number" name="display_order" class="form-control" value="0"></div>
-                <div class="col-md-3 mb-3"><label class="form-label d-block">Active</label><div class="form-check form-check-inline"><input class="form-check-input" type="checkbox" name="is_active" value="1" checked><label class="form-check-label">Yes</label></div></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Meta Title (EN)</label><input type="text" name="meta_title_en" class="form-control"></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Meta Title (AR)</label><input type="text" name="meta_title_ar" class="form-control"></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Meta Description (EN)</label><textarea name="meta_description_en" class="form-control" rows="2"></textarea></div>
-                <div class="col-md-6 mb-3"><label class="form-label">Meta Description (AR)</label><textarea name="meta_description_ar" class="form-control" rows="2"></textarea></div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div><label class="block text-sm font-medium text-text mb-1.5">Name (EN) *</label><input type="text" name="name_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" required></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Name (AR)</label><input type="text" name="name_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Slug</label><input type="text" name="slug" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Icon (CSS class)</label><input type="text" name="icon" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" placeholder="lucide lucide-heart"></div>
+                <div class="md:col-span-2"><label class="block text-sm font-medium text-text mb-1.5">Description (EN)</label><textarea name="description_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3"></textarea></div>
+                <div class="md:col-span-2"><label class="block text-sm font-medium text-text mb-1.5">Description (AR)</label><textarea name="description_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3"></textarea></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Image</label><input type="file" name="image" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" accept="image/*"></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Display Order</label><input type="number" name="display_order" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="0"></div>
+                <div class="md:col-span-2 flex items-center gap-2"><input type="checkbox" name="is_active" value="1" checked class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm font-medium text-text">Active</label></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Meta Title (EN)</label><input type="text" name="meta_title_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Meta Title (AR)</label><input type="text" name="meta_title_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Meta Description (EN)</label><textarea name="meta_description_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="2"></textarea></div>
+                <div><label class="block text-sm font-medium text-text mb-1.5">Meta Description (AR)</label><textarea name="meta_description_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="2"></textarea></div>
             </div>
-            <button type="submit" class="btn btn-primary">Save Service</button>
+            <button type="submit" class="px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">Save Service</button>
         </form>
     </div>
 </div>

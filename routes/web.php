@@ -67,6 +67,17 @@ Route::post('/business/inquiry', [BusinessInquiryController::class, 'store'])->n
 Route::post('/join-us/apply', [ProviderApplicationController::class, 'store'])->name('join-us.apply');
 Route::post('/early-access', [EarlyAccessController::class, 'store'])->name('early-access.store');
 
+Route::get('/language/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session()->put('locale', $locale);
+        if (auth()->check()) {
+            $user = auth()->user();
+            $user->locale = $locale;
+            $user->save();
+        }
+    }
+    return redirect()->back();
+})->name('language.switch');
 Route::middleware(['throttle:5,1'])->group(function () {
     Route::get('/register', [RegisterController::class, 'showForm'])->name('register');
     Route::post('/register', [RegisterController::class, 'register']);

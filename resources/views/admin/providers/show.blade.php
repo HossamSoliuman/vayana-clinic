@@ -3,28 +3,28 @@
 @section('title', 'Provider Details')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Provider Details</h2>
-    <a href="{{ route('admin.providers.index') }}" class="btn btn-outline-secondary"><i class="bi bi-arrow-left"></i> Back</a>
+<div class="flex items-center justify-between mb-8">
+    <h2 class="text-2xl font-bold text-text">Provider Details</h2>
+    <a href="{{ route('admin.providers.index') }}" class="inline-flex items-center gap-2 px-4 py-2 border border-border text-text-muted rounded-lg hover:bg-surface-secondary transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</a>
 </div>
 
-<div class="row g-4">
-    <div class="col-md-4">
-        <div class="card">
-            <div class="card-body text-center">
-                <h5>{{ $provider->user?->full_name ?? 'N/A' }}</h5>
-                <p class="text-muted">{{ $provider->user?->email }}</p>
-                <span class="badge bg-primary">{{ $provider->title ?? 'Provider' }}</span>
-                <div class="mt-3">
-                    <form action="{{ route('admin.providers.verify', $provider) }}" method="POST" class="d-inline">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <div class="lg:col-span-1">
+        <div class="bg-surface rounded-xl border border-border">
+            <div class="p-6 text-center flex flex-col items-center">
+                <h5 class="text-lg font-semibold text-text">{{ $provider->user?->full_name ?? 'N/A' }}</h5>
+                <p class="text-sm text-text-muted mb-3">{{ $provider->user?->email }}</p>
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary text-white mb-6">{{ $provider->title ?? 'Provider' }}</span>
+                <div class="flex items-center justify-center gap-2">
+                    <form action="{{ route('admin.providers.verify', $provider) }}" method="POST" class="inline">
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-{{ $provider->is_verified ? 'secondary' : 'success' }}">
+                        <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ $provider->is_verified ? 'bg-slate-100 text-slate-600 hover:bg-slate-200' : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100' }}">
                             {{ $provider->is_verified ? 'Unverify' : 'Verify' }}
                         </button>
                     </form>
-                    <form action="{{ route('admin.providers.feature', $provider) }}" method="POST" class="d-inline">
+                    <form action="{{ route('admin.providers.feature', $provider) }}" method="POST" class="inline">
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-{{ $provider->is_featured ? 'secondary' : 'warning' }}">
+                        <button type="submit" class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {{ $provider->is_featured ? 'bg-slate-100 text-slate-600 hover:bg-slate-200' : 'bg-amber-50 text-amber-600 hover:bg-amber-100' }}">
                             {{ $provider->is_featured ? 'Unfeature' : 'Feature' }}
                         </button>
                     </form>
@@ -32,20 +32,22 @@
             </div>
         </div>
     </div>
-    <div class="col-md-8">
-        <div class="card">
-            <div class="card-header">Profile Information</div>
-            <div class="card-body">
-                <table class="table table-borderless">
-                    <tr><td><strong>License Number:</strong></td><td>{{ $provider->license_number }}</td></tr>
-                    <tr><td><strong>Biography:</strong></td><td>{{ $provider->biography_en ?? 'N/A' }}</td></tr>
-                    <tr><td><strong>Experience:</strong></td><td>{{ $provider->years_of_experience ?? 'N/A' }} years</td></tr>
-                    <tr><td><strong>Work Type:</strong></td><td>{{ $provider->work_type }}</td></tr>
-                    <tr><td><strong>Online Price:</strong></td><td>{{ $provider->session_price_online ?? 'N/A' }} {{ $provider->currency }}</td></tr>
-                    <tr><td><strong>In-Person Price:</strong></td><td>{{ $provider->session_price_inperson ?? 'N/A' }} {{ $provider->currency }}</td></tr>
-                    <tr><td><strong>Specialties:</strong></td><td>{{ $provider->specialties->pluck('name_en')->implode(', ') ?: 'N/A' }}</td></tr>
-                    <tr><td><strong>Languages:</strong></td><td>{{ $provider->languages->pluck('language')->implode(', ') ?: 'N/A' }}</td></tr>
-                    <tr><td><strong>Rating:</strong></td><td>{{ $provider->rating_average }} ({{ $provider->rating_count }} reviews)</td></tr>
+    <div class="lg:col-span-2">
+        <div class="bg-surface rounded-xl border border-border">
+            <div class="px-6 py-4 border-b border-border font-semibold text-sm text-text">Profile Information</div>
+            <div class="p-6">
+                <table class="w-full text-sm">
+                    <tbody>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium w-40">License Number:</td><td class="px-0 py-2 text-text">{{ $provider->license_number }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Biography:</td><td class="px-0 py-2 text-text">{{ $provider->biography_en ?? 'N/A' }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Experience:</td><td class="px-0 py-2 text-text">{{ $provider->years_of_experience ?? 'N/A' }} years</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Work Type:</td><td class="px-0 py-2 text-text">{{ $provider->work_type }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Online Price:</td><td class="px-0 py-2 text-text">{{ $provider->session_price_online ?? 'N/A' }} {{ $provider->currency }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">In-Person Price:</td><td class="px-0 py-2 text-text">{{ $provider->session_price_inperson ?? 'N/A' }} {{ $provider->currency }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Specialties:</td><td class="px-0 py-2 text-text">{{ $provider->specialties->pluck('name_en')->implode(', ') ?: 'N/A' }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Languages:</td><td class="px-0 py-2 text-text">{{ $provider->languages->pluck('language')->implode(', ') ?: 'N/A' }}</td></tr>
+                        <tr><td class="px-0 py-2 text-text-muted font-medium">Rating:</td><td class="px-0 py-2 text-text">{{ $provider->rating_average }} ({{ $provider->rating_count }} reviews)</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
