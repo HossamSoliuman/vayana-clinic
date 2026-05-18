@@ -7,6 +7,7 @@ use App\Models\ProviderProfile;
 use App\Models\Specialty;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProviderController extends Controller
 {
@@ -59,6 +60,7 @@ class ProviderController extends Controller
             'session_price_online' => 'required|numeric|min:0|max:9999.99',
             'session_price_inperson' => 'required|numeric|min:0|max:9999.99',
             'work_type' => 'required|in:online,in_person,hybrid',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'specialties' => 'required|array|min:1',
             'specialties.*' => 'exists:specialties,id',
             'languages' => 'required|array|min:1',
@@ -78,8 +80,14 @@ class ProviderController extends Controller
             'is_active' => true,
         ]);
 
+        $photoPath = null;
+        if ($request->hasFile('photo')) {
+            $photoPath = $request->file('photo')->store('providers', 'public');
+        }
+
         $provider = ProviderProfile::create([
             'user_id' => $user->id,
+            'photo_path' => $photoPath,
             'title' => $validated['title'],
             'biography_en' => $validated['biography_en'],
             'biography_ar' => $validated['biography_ar'] ?? $validated['biography_en'],
@@ -109,6 +117,75 @@ class ProviderController extends Controller
         $provider->load('user', 'specialties', 'languages', 'availabilities');
 
         return view('admin.providers.show', compact('provider'));
+    }
+
+    public function edit(ProviderProfile $provider)
+    {
+        $provider->load('user', 'specialties', 'languages');
+        $specialties = Specialty::active()->get();
+
+        return view('admin.providers.edit', compact('provider', 'specialties'));
+    }
+
+    public function update(Request $request, ProviderProfile $provider)
+    {
+        $validated = $request->validate([
+            'first_name_en' => 'required|string|max:255',
+            'last_name_en' => 'required|string|max:255',
+            'first_name_ar' => 'nullable|string|max:255',
+            'last_name_ar' => 'nullable|string|max:255',
+            'title' => 'required|in:Dr,Mr,Ms,Mrs',
+            'biography_en' => 'required|string',
+            'biography_ar' => 'nullable|string',
+            'years_of_experience' => 'required|integer|min:0|max:70',
+            'session_price_online' => 'required|numeric|min:0|max:9999.99',
+            'session_price_inperson' => 'required|numeric|min:0|max:9999.99',
+            'work_type' => 'required|in:online,in_person,hybrid',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'specialties' => 'required|array|min:1',
+            'specialties.*' => 'exists:specialties,id',
+            'languages' => 'required|array|min:1',
+            'languages.*' => 'in:arabic,english,french,other',
+            'is_verified' => 'boolean',
+            'is_available' => 'boolean',
+        ]);
+
+        $provider->update([
+            'title' => $validated['title'],
+            'biography_en' => $validated['biography_en'],
+            'biography_ar' => $validated['biography_ar'] ?? $validated['biography_en'],
+            'years_of_experience' => $validated['years_of_experience'],
+            'session_price_online' => $validated['session_price_online'],
+            'session_price_inperson' => $validated['session_price_inperson'],
+            'work_type' => $validated['work_type'],
+            'is_verified' => $validated['is_verified'] ?? false,
+            'is_available' => $validated['is_available'] ?? true,
+        ]);
+
+        if ($request->hasFile('photo')) {
+            if ($provider->photo_path && Storage::disk('public')->exists($provider->photo_path)) {
+                Storage::disk('public')->delete($provider->photo_path);
+            }
+            $photoPath = $request->file('photo')->store('providers', 'public');
+            $provider->update(['photo_path' => $photoPath]);
+        }
+
+        $provider->user()->update([
+            'first_name_en' => $validated['first_name_en'],
+            'last_name_en' => $validated['last_name_en'],
+            'first_name_ar' => $validated['first_name_ar'] ?? $validated['first_name_en'],
+            'last_name_ar' => $validated['last_name_ar'] ?? $validated['last_name_en'],
+        ]);
+
+        $provider->specialties()->sync($validated['specialties']);
+        $provider->languages()->delete();
+
+        foreach ($validated['languages'] as $language) {
+            $provider->languages()->create(['language' => $language]);
+        }
+
+        return redirect()->route('admin.providers.show', $provider)
+            ->with('success', __('messages.provider_updated'));
     }
 
     public function verify(ProviderProfile $provider)

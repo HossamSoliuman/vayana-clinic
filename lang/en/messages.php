@@ -292,4 +292,7 @@ return [
     'specialties' => 'Specialties',
     'languages' => 'Languages',
     'available' => 'Available',
+    'track_mood' => 'Track Mood',
+    'edit_provider' => 'Edit Provider',
+    'provider_updated' => 'Provider updated successfully.',
 ];

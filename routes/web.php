@@ -122,6 +122,8 @@ Route::middleware(['auth', 'role:admin|super_admin'])->prefix('admin')->name('ad
     Route::get('/providers/create', [ProviderController::class, 'create'])->name('providers.create');
     Route::post('/providers', [ProviderController::class, 'store'])->name('providers.store');
     Route::get('/providers/{provider}', [ProviderController::class, 'show'])->name('providers.show');
+    Route::get('/providers/{provider}/edit', [ProviderController::class, 'edit'])->name('providers.edit');
+    Route::put('/providers/{provider}', [ProviderController::class, 'update'])->name('providers.update');
     Route::post('/providers/{provider}/verify', [ProviderController::class, 'verify'])->name('providers.verify');
     Route::post('/providers/{provider}/feature', [ProviderController::class, 'toggleFeatured'])->name('providers.feature');
 
@@ -156,7 +158,7 @@ Route::middleware(['auth', 'role:admin|super_admin'])->prefix('admin')->name('ad
 
     Route::get('/partners', [PartnerController::class, 'index'])->name('partners.index');
     Route::post('/partners', [PartnerController::class, 'store'])->name('partners.store');
-    Route::post('/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update');
+    Route::put('/partners/{partner}', [PartnerController::class, 'update'])->name('partners.update');
     Route::delete('/partners/{partner}', [PartnerController::class, 'destroy'])->name('partners.destroy');
 
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings.index');

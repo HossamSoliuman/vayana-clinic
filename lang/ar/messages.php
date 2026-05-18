@@ -258,4 +258,7 @@ return [
     'specialties' => 'التخصصات',
     'languages' => 'اللغات',
     'available' => 'متاح',
+    'track_mood' => 'تتبع المزاج',
+    'edit_provider' => 'تعديل الأخصائي',
+    'provider_updated' => 'تم تحديث الأخصائي بنجاح.',
 ];
