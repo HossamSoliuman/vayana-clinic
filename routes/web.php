@@ -1,47 +1,47 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
-use App\Http\Controllers\ServicesController;
-use App\Http\Controllers\ProvidersController;
-use App\Http\Controllers\ProgramsController;
-use App\Http\Controllers\ResourcesController;
-use App\Http\Controllers\WorkshopsController;
-use App\Http\Controllers\JournalPageController;
-use App\Http\Controllers\BusinessController;
-use App\Http\Controllers\InPersonController;
-use App\Http\Controllers\JoinUsController;
-use App\Http\Controllers\FaqController;
-use App\Http\Controllers\AppointmentController;
-use App\Http\Controllers\BusinessInquiryController;
-use App\Http\Controllers\ProviderApplicationController;
-use App\Http\Controllers\EarlyAccessController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
-use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
-use App\Http\Controllers\Client\ProfileController;
-use App\Http\Controllers\Client\JournalController;
-use App\Http\Controllers\Client\MoodController;
-use App\Http\Controllers\Client\ThoughtLogController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ProviderController;
 use App\Http\Controllers\Admin\ApplicationController;
 use App\Http\Controllers\Admin\AppointmentController as AdminAppointmentController;
 use App\Http\Controllers\Admin\BusinessInquiryController as AdminBusinessInquiryController;
-use App\Http\Controllers\Admin\ServiceController;
-use App\Http\Controllers\Admin\ProgramController;
-use App\Http\Controllers\Admin\ResourceController;
-use App\Http\Controllers\Admin\WorkshopController as AdminWorkshopController;
-use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\JournalPromptController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\ProviderController;
+use App\Http\Controllers\Admin\ResourceController;
+use App\Http\Controllers\Admin\ReviewController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubscriptionPlanController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\WorkshopController as AdminWorkshopController;
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\BusinessController;
+use App\Http\Controllers\BusinessInquiryController;
+use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
+use App\Http\Controllers\Client\JournalController;
+use App\Http\Controllers\Client\MoodController;
+use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\ThoughtLogController;
+use App\Http\Controllers\EarlyAccessController;
+use App\Http\Controllers\FaqController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InPersonController;
+use App\Http\Controllers\JoinUsController;
+use App\Http\Controllers\JournalPageController;
+use App\Http\Controllers\ProgramsController;
+use App\Http\Controllers\ProviderApplicationController;
+use App\Http\Controllers\ProvidersController;
+use App\Http\Controllers\ResourcesController;
+use App\Http\Controllers\ServicesController;
+use App\Http\Controllers\WorkshopsController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
@@ -76,6 +76,7 @@ Route::get('/language/{locale}', function ($locale) {
             $user->save();
         }
     }
+
     return redirect()->back();
 })->name('language.switch');
 Route::middleware(['throttle:5,1'])->group(function () {
@@ -118,6 +119,8 @@ Route::middleware(['auth', 'role:admin|super_admin'])->prefix('admin')->name('ad
     Route::post('/users/{user}/status', [UserController::class, 'toggleStatus'])->name('users.status');
 
     Route::get('/providers', [ProviderController::class, 'index'])->name('providers.index');
+    Route::get('/providers/create', [ProviderController::class, 'create'])->name('providers.create');
+    Route::post('/providers', [ProviderController::class, 'store'])->name('providers.store');
     Route::get('/providers/{provider}', [ProviderController::class, 'show'])->name('providers.show');
     Route::post('/providers/{provider}/verify', [ProviderController::class, 'verify'])->name('providers.verify');
     Route::post('/providers/{provider}/feature', [ProviderController::class, 'toggleFeatured'])->name('providers.feature');

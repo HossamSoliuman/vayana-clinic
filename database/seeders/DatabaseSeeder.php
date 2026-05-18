@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             JournalPromptsSeeder::class,
             SiteSettingsSeeder::class,
             PartnersSeeder::class,
+            ProviderSeeder::class,
         ]);
     }
 }

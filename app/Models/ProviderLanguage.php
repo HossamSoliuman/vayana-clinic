@@ -16,6 +16,8 @@ class ProviderLanguage extends Model
         'language',
     ];
 
+    public $timestamps = false;
+
     public function providerProfile()
     {
         return $this->belongsTo(ProviderProfile::class);

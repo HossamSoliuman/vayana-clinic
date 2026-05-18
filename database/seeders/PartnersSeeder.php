@@ -10,10 +10,10 @@ class PartnersSeeder extends Seeder
     public function run(): void
     {
         $partners = [
-            ['name' => 'Ministry of Health', 'display_order' => 1],
-            ['name' => 'Saudi Business Center', 'display_order' => 2],
-            ['name' => 'Seha', 'display_order' => 3],
-            ['name' => 'Saudi Commission for Health Specialties', 'display_order' => 4],
+            ['name' => 'Ministry of Health', 'logo_path' => '', 'display_order' => 1],
+            ['name' => 'Saudi Business Center', 'logo_path' => '', 'display_order' => 2],
+            ['name' => 'Seha', 'logo_path' => '', 'display_order' => 3],
+            ['name' => 'Saudi Commission for Health Specialties', 'logo_path' => '', 'display_order' => 4],
         ];
 
         foreach ($partners as $p) {
