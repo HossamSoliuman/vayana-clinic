@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Dashboard</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.dashboard') }}</h2>
     <span class="text-text-muted">{{ now()->format('F d, Y') }}</span>
 </div>
 

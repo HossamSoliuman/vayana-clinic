@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Provider Applications</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.provider_applications') }}</h2>
 </div>
 
 <div class="bg-surface rounded-xl border border-border">
@@ -12,12 +12,12 @@
         <form method="GET" class="flex flex-wrap items-center gap-4 mb-6">
             <div class="w-full sm:w-auto">
                 <select name="status" class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" onchange="this.form.submit()">
-                    <option value="">All Status</option>
-                    <option value="submitted" {{ request('status') === 'submitted' ? 'selected' : '' }}>Submitted</option>
-                    <option value="under_review" {{ request('status') === 'under_review' ? 'selected' : '' }}>Under Review</option>
-                    <option value="interview_scheduled" {{ request('status') === 'interview_scheduled' ? 'selected' : '' }}>Interview Scheduled</option>
-                    <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>Approved</option>
-                    <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>Rejected</option>
+                    <option value="">{{ __('messages.all_status') }}</option>
+                    <option value="submitted" {{ request('status') === 'submitted' ? 'selected' : '' }}>{{ __('messages.submitted') }}</option>
+                    <option value="under_review" {{ request('status') === 'under_review' ? 'selected' : '' }}>{{ __('messages.under_review') }}</option>
+                    <option value="interview_scheduled" {{ request('status') === 'interview_scheduled' ? 'selected' : '' }}>{{ __('messages.interview_scheduled') }}</option>
+                    <option value="approved" {{ request('status') === 'approved' ? 'selected' : '' }}>{{ __('messages.approved') }}</option>
+                    <option value="rejected" {{ request('status') === 'rejected' ? 'selected' : '' }}>{{ __('messages.rejected') }}</option>
                 </select>
             </div>
         </form>
@@ -26,13 +26,13 @@
             <table class="w-full text-sm ltr:text-left rtl:text-right">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Name</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Email</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Specialty</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Work Type</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Status</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Applied</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.name') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.email') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.specialty') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.work_type') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.status') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.applied') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>

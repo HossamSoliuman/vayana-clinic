@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Appointment Details</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.appointment_details') }}</h2>
     <a href="{{ route('admin.appointments.index') }}" class="inline-flex items-center gap-2 px-4 py-2 border border-border text-text-muted rounded-lg hover:bg-surface-secondary transition-colors text-sm"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back</a>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -35,7 +35,7 @@
             <div class="p-6">
                 <form action="{{ route('admin.appointments.status', $appointment) }}" method="POST">
                     @csrf
-                    <label class="block text-sm font-medium text-text mb-1.5">Status</label>
+                    <label class="block text-sm font-medium text-text mb-1.5">{{ __('messages.status') }}</label>
                     <select name="status" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3">
                         <option value="pending" {{ $appointment->status=='pending'?'selected':'' }}>Pending</option>
                         <option value="confirmed" {{ $appointment->status=='confirmed'?'selected':'' }}>Confirmed</option>
@@ -45,7 +45,7 @@
                     <textarea name="admin_notes" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3" placeholder="Admin notes...">{{ $appointment->admin_notes }}</textarea>
                     <input type="text" name="clinic_location_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-3" placeholder="Clinic location (EN)" value="{{ $appointment->clinic_location_en }}">
                     <input type="text" name="clinic_location_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary mb-4" placeholder="Clinic location (AR)" value="{{ $appointment->clinic_location_ar }}">
-                    <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">Update</button>
+                    <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">{{ __('messages.update') }}</button>
                 </form>
             </div>
         </div>

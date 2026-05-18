@@ -4,18 +4,18 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Appointments</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.appointments') }}</h2>
 </div>
 <div class="bg-surface rounded-xl border border-border">
     <div class="p-6">
         <form method="GET" class="flex flex-wrap items-center gap-4 mb-6">
             <div class="w-full sm:w-auto">
                 <select name="status" class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" onchange="this.form.submit()">
-                    <option value="">All</option>
-                    <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
-                    <option value="confirmed" {{ request('status')=='confirmed'?'selected':'' }}>Confirmed</option>
-                    <option value="cancelled" {{ request('status')=='cancelled'?'selected':'' }}>Cancelled</option>
-                    <option value="completed" {{ request('status')=='completed'?'selected':'' }}>Completed</option>
+                    <option value="">{{ __('messages.all') }}</option>
+                    <option value="pending" {{ request('status')=='pending'?'selected':'' }}>{{ __('messages.pending') }}</option>
+                    <option value="confirmed" {{ request('status')=='confirmed'?'selected':'' }}>{{ __('messages.confirmed') }}</option>
+                    <option value="cancelled" {{ request('status')=='cancelled'?'selected':'' }}>{{ __('messages.cancelled') }}</option>
+                    <option value="completed" {{ request('status')=='completed'?'selected':'' }}>{{ __('messages.completed') }}</option>
                 </select>
             </div>
         </form>
@@ -23,12 +23,12 @@
             <table class="w-full text-sm ltr:text-left rtl:text-right">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Name</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Email</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Preferred Date</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Status</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Submitted</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.name') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.email') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.preferred_date') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.status') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.submitted') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>

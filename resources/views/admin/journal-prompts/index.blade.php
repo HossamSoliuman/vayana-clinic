@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Journal Prompts</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.journal_prompts') }}</h2>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
     <div class="lg:col-span-1">
@@ -15,10 +15,10 @@
                     @csrf
                     <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Prompt (EN) *</label><textarea name="prompt_text_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" required></textarea></div>
                     <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Prompt (AR)</label><textarea name="prompt_text_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3"></textarea></div>
-                    <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Category</label><select name="category" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"><option value="gratitude">Gratitude</option><option value="reflection" selected>Reflection</option><option value="emotion">Emotion</option><option value="goal_setting">Goal Setting</option><option value="mindfulness">Mindfulness</option></select></div>
-                    <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Order</label><input type="number" name="display_order" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="0"></div>
-                    <div class="mb-4 flex items-center gap-2"><input type="checkbox" name="is_active" value="1" checked class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm font-medium text-text">Active</label></div>
-                    <button type="submit" class="w-full px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">Add Prompt</button>
+                    <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">{{ __('messages.category') }}</label><select name="category" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"><option value="gratitude">{{ __('messages.gratitude') }}</option><option value="reflection" selected>{{ __('messages.reflection') }}</option><option value="emotion">{{ __('messages.emotion') }}</option><option value="goal_setting">{{ __('messages.goal_setting') }}</option><option value="mindfulness">{{ __('messages.mindfulness') }}</option></select></div>
+                    <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">{{ __('messages.order') }}</label><input type="number" name="display_order" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="0"></div>
+                    <div class="mb-4 flex items-center gap-2"><input type="checkbox" name="is_active" value="1" checked class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm font-medium text-text">{{ __('messages.active') }}</label></div>
+                    <button type="submit" class="w-full px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">{{ __('messages.add_prompt') }}</button>
                 </form>
             </div>
         </div>
@@ -30,10 +30,10 @@
                     <table class="w-full text-sm ltr:text-left rtl:text-right">
                         <thead><tr>
                             <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Prompt (EN)</th>
-                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Category</th>
-                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Order</th>
-                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Active</th>
-                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.category') }}</th>
+                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.order') }}</th>
+                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.active') }}</th>
+                            <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                         </tr></thead>
                         <tbody>
                             @forelse($prompts as $prompt)
@@ -55,19 +55,19 @@
                                             @csrf
                                             @method('PUT')
                                             <div class="px-6 py-4 border-b border-border flex items-center justify-between">
-                                                <h5 class="font-semibold text-text">Edit Prompt</h5>
+                                                <h5 class="font-semibold text-text">{{ __('messages.edit_prompt') }}</h5>
                                                 <button type="button" class="text-text-muted hover:text-text transition-colors" onclick="typeof closeModal === 'function' ? closeModal('editPrompt{{ $prompt->id }}') : document.getElementById('editPrompt{{ $prompt->id }}').classList.add('hidden')"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
                                             </div>
                                             <div class="p-6">
                                                 <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Prompt (EN) *</label><textarea name="prompt_text_en" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3" required>{{ $prompt->prompt_text_en }}</textarea></div>
                                                 <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Prompt (AR)</label><textarea name="prompt_text_ar" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3">{{ $prompt->prompt_text_ar }}</textarea></div>
-                                                <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Category</label><select name="category" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"><option value="gratitude" {{ $prompt->category=='gratitude'?'selected':'' }}>Gratitude</option><option value="reflection" {{ $prompt->category=='reflection'?'selected':'' }}>Reflection</option><option value="emotion" {{ $prompt->category=='emotion'?'selected':'' }}>Emotion</option><option value="goal_setting" {{ $prompt->category=='goal_setting'?'selected':'' }}>Goal Setting</option><option value="mindfulness" {{ $prompt->category=='mindfulness'?'selected':'' }}>Mindfulness</option></select></div>
-                                                <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">Order</label><input type="number" name="display_order" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="{{ $prompt->display_order }}"></div>
-                                                <div class="mb-4 flex items-center gap-2"><input type="checkbox" name="is_active" value="1" {{ $prompt->is_active?'checked':'' }} class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm font-medium text-text">Active</label></div>
+                                                <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">{{ __('messages.category') }}</label><select name="category" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"><option value="gratitude" {{ $prompt->category=='gratitude'?'selected':'' }}>Gratitude</option><option value="reflection" {{ $prompt->category=='reflection'?'selected':'' }}>Reflection</option><option value="emotion" {{ $prompt->category=='emotion'?'selected':'' }}>Emotion</option><option value="goal_setting" {{ $prompt->category=='goal_setting'?'selected':'' }}>Goal Setting</option><option value="mindfulness" {{ $prompt->category=='mindfulness'?'selected':'' }}>Mindfulness</option></select></div>
+                                                <div class="mb-4"><label class="block text-sm font-medium text-text mb-1.5">{{ __('messages.order') }}</label><input type="number" name="display_order" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" value="{{ $prompt->display_order }}"></div>
+                                                <div class="mb-4 flex items-center gap-2"><input type="checkbox" name="is_active" value="1" {{ $prompt->is_active?'checked':'' }} class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm font-medium text-text">{{ __('messages.active') }}</label></div>
                                             </div>
                                             <div class="px-6 py-4 border-t border-border bg-surface-secondary flex justify-end gap-3">
                                                 <button type="button" class="px-4 py-2 border border-border rounded-lg text-text hover:bg-surface transition-colors text-sm font-medium" onclick="typeof closeModal === 'function' ? closeModal('editPrompt{{ $prompt->id }}') : document.getElementById('editPrompt{{ $prompt->id }}').classList.add('hidden')">Cancel</button>
-                                                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">Update</button>
+                                                <button type="submit" class="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">{{ __('messages.update') }}</button>
                                             </div>
                                         </form>
                                     </div>

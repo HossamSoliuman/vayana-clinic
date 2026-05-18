@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Resources</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.resources') }}</h2>
     <a href="{{ route('admin.resources.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Add Resource</a>
 </div>
 <div class="bg-surface rounded-xl border border-border">
@@ -12,27 +12,27 @@
         <form method="GET" class="flex flex-wrap items-center gap-4 mb-6">
             <div class="w-full sm:w-auto">
                 <select name="type" class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" onchange="this.form.submit()">
-                    <option value="">All Types</option>
-                    <option value="blog_article" {{ request('type')=='blog_article'?'selected':'' }}>Blog Article</option>
-                    <option value="audio" {{ request('type')=='audio'?'selected':'' }}>Audio</option>
+                    <option value="">{{ __('messages.all_types') }}</option>
+                    <option value="blog_article" {{ request('type')=='blog_article'?'selected':'' }}>{{ __('messages.blog_article') }}</option>
+                    <option value="audio" {{ request('type')=='audio'?'selected':'' }}>{{ __('messages.audio') }}</option>
                     <option value="self_help_ebook" {{ request('type')=='self_help_ebook'?'selected':'' }}>eBook</option>
-                    <option value="video" {{ request('type')=='video'?'selected':'' }}>Video</option>
-                    <option value="guided_meditation" {{ request('type')=='guided_meditation'?'selected':'' }}>Meditation</option>
-                    <option value="mental_health_conversation" {{ request('type')=='mental_health_conversation'?'selected':'' }}>Conversation</option>
-                    <option value="assessment" {{ request('type')=='assessment'?'selected':'' }}>Assessment</option>
+                    <option value="video" {{ request('type')=='video'?'selected':'' }}>{{ __('messages.video') }}</option>
+                    <option value="guided_meditation" {{ request('type')=='guided_meditation'?'selected':'' }}>{{ __('messages.meditation') }}</option>
+                    <option value="mental_health_conversation" {{ request('type')=='mental_health_conversation'?'selected':'' }}>{{ __('messages.conversation') }}</option>
+                    <option value="assessment" {{ request('type')=='assessment'?'selected':'' }}>{{ __('messages.assessment') }}</option>
                 </select>
             </div>
         </form>
         <div class="overflow-x-auto mb-4">
             <table class="w-full text-sm ltr:text-left rtl:text-right">
                 <thead><tr>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Title</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Type</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Category</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Views</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Active</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Published</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.title') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.type') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.category') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.views') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.active') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.published') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                 </tr></thead>
                 <tbody>
                     @forelse($resources as $resource)

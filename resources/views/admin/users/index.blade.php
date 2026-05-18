@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Users</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.users') }}</h2>
 </div>
 
 <div class="bg-surface rounded-xl border border-border">
@@ -12,11 +12,11 @@
         <form method="GET" class="flex flex-wrap items-center gap-4 mb-6">
             <div class="w-full sm:w-auto">
                 <select name="role" class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" onchange="this.form.submit()">
-                    <option value="">All Roles</option>
-                    <option value="super_admin" {{ request('role') === 'super_admin' ? 'selected' : '' }}>Super Admin</option>
-                    <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="provider" {{ request('role') === 'provider' ? 'selected' : '' }}>Provider</option>
-                    <option value="client" {{ request('role') === 'client' ? 'selected' : '' }}>Client</option>
+                    <option value="">{{ __('messages.all_roles') }}</option>
+                    <option value="super_admin" {{ request('role') === 'super_admin' ? 'selected' : '' }}>{{ __('messages.super_admin') }}</option>
+                    <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>{{ __('messages.admin') }}</option>
+                    <option value="provider" {{ request('role') === 'provider' ? 'selected' : '' }}>{{ __('messages.provider') }}</option>
+                    <option value="client" {{ request('role') === 'client' ? 'selected' : '' }}>{{ __('messages.client') }}</option>
                 </select>
             </div>
             <div class="w-full sm:w-64">
@@ -33,12 +33,12 @@
             <table class="w-full text-sm ltr:text-left rtl:text-right">
                 <thead>
                     <tr>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Name</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Email</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Role</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Status</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Joined</th>
-                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.name') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.email') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.role') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.status') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.joined') }}</th>
+                        <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                     </tr>
                 </thead>
                 <tbody>

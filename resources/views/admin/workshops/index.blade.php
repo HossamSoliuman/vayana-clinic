@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Workshops</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.workshops') }}</h2>
     <a href="{{ route('admin.workshops.create') }}" class="inline-flex items-center gap-2 px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="M5 12h14"/><path d="M12 5v14"/></svg> Add Workshop</a>
 </div>
 <div class="bg-surface rounded-xl border border-border">
@@ -12,26 +12,26 @@
         <form method="GET" class="flex flex-wrap items-center gap-4 mb-6">
             <div class="w-full sm:w-auto">
                 <select name="category" class="rounded-lg border border-border bg-surface px-3 py-2 text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary w-full" onchange="this.form.submit()">
-                    <option value="">All Categories</option>
-                    <option value="wellness" {{ request('category')=='wellness'?'selected':'' }}>Wellness</option>
-                    <option value="resilience" {{ request('category')=='resilience'?'selected':'' }}>Resilience</option>
-                    <option value="stress_management" {{ request('category')=='stress_management'?'selected':'' }}>Stress Management</option>
-                    <option value="confidence" {{ request('category')=='confidence'?'selected':'' }}>Confidence</option>
-                    <option value="workplace" {{ request('category')=='workplace'?'selected':'' }}>Workplace</option>
-                    <option value="other" {{ request('category')=='other'?'selected':'' }}>Other</option>
+                    <option value="">{{ __('messages.all_categories') }}</option>
+                    <option value="wellness" {{ request('category')=='wellness'?'selected':'' }}>{{ __('messages.wellness') }}</option>
+                    <option value="resilience" {{ request('category')=='resilience'?'selected':'' }}>{{ __('messages.resilience') }}</option>
+                    <option value="stress_management" {{ request('category')=='stress_management'?'selected':'' }}>{{ __('messages.stress_management') }}</option>
+                    <option value="confidence" {{ request('category')=='confidence'?'selected':'' }}>{{ __('messages.confidence') }}</option>
+                    <option value="workplace" {{ request('category')=='workplace'?'selected':'' }}>{{ __('messages.workplace') }}</option>
+                    <option value="other" {{ request('category')=='other'?'selected':'' }}>{{ __('messages.other') }}</option>
                 </select>
             </div>
         </form>
         <div class="overflow-x-auto mb-4">
             <table class="w-full text-sm ltr:text-left rtl:text-right">
                 <thead><tr>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Title</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Date</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Location</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Price</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Open</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Active</th>
-                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">Actions</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.title') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.date') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.location') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.price') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.open') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.active') }}</th>
+                    <th class="px-6 py-3 text-xs font-semibold uppercase tracking-wider text-text-muted bg-surface-secondary border-b border-border">{{ __('messages.actions') }}</th>
                 </tr></thead>
                 <tbody>
                     @forelse($workshops as $workshop)

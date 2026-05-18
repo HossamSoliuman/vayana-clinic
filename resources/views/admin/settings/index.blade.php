@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="flex items-center justify-between mb-8">
-    <h2 class="text-2xl font-bold text-text">Site Settings</h2>
+    <h2 class="text-2xl font-bold text-text">{{ __('messages.site_settings') }}</h2>
 </div>
 <div class="bg-surface rounded-xl border border-border overflow-hidden">
     <form action="{{ route('admin.settings.update') }}" method="POST">
@@ -24,7 +24,7 @@
                                 <div class="col-span-1">
                                     <label class="block text-sm font-medium text-text mb-1.5 capitalize">{{ str_replace(['_en', '_ar', '_'], [' (EN)', ' (AR)', ' '], $s->key) }}</label>
                                     @if($s->type === 'boolean')
-                                        <div class="flex items-center gap-2 h-10"><input type="checkbox" name="{{ $s->key }}" value="1" {{ $s->value ? 'checked' : '' }} class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm text-text">Enabled</label></div>
+                                        <div class="flex items-center gap-2 h-10"><input type="checkbox" name="{{ $s->key }}" value="1" {{ $s->value ? 'checked' : '' }} class="w-4 h-4 text-primary border-border rounded focus:ring-primary"><label class="text-sm text-text">{{ __('messages.enabled') }}</label></div>
                                     @elseif($s->type === 'text')
                                         <textarea name="{{ $s->key }}" class="w-full rounded-lg border border-border px-3 py-2 text-sm text-text bg-surface focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary" rows="3">{{ $s->value }}</textarea>
                                     @else
@@ -40,7 +40,7 @@
             </div>
         </div>
         <div class="px-6 py-4 border-t border-border bg-surface-secondary flex justify-end">
-            <button type="submit" class="px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">Save All Settings</button>
+            <button type="submit" class="px-4 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-hover transition-colors text-sm font-medium">{{ __('messages.save_all_settings') }}</button>
         </div>
     </form>
 </div>
