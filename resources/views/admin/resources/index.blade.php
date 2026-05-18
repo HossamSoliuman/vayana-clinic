@@ -37,9 +37,27 @@
                 <tbody>
                     @forelse($resources as $resource)
                         <tr class="border-b border-border hover:bg-surface-secondary/50 transition-colors">
-                            <td class="px-6 py-4 text-sm text-text">{{ $resource->title_en }}</td>
+                            <td class="px-6 py-4 text-sm text-text">
+                                <div class="space-y-1">
+                                    <div><span class="text-xs text-text-muted">EN:</span> {{ $resource->title_en }}</div>
+                                    @if($resource->title_ar)
+                                        <div dir="rtl"><span class="text-xs text-text-muted">AR:</span> {{ $resource->title_ar }}</div>
+                                    @endif
+                                </div>
+                            </td>
                             <td class="px-6 py-4 text-sm text-text">{{ $resource->type }}</td>
-                            <td class="px-6 py-4 text-sm text-text">{{ $resource->category?->name_en ?? 'N/A' }}</td>
+                            <td class="px-6 py-4 text-sm text-text">
+                                @if($resource->category)
+                                    <div class="space-y-1">
+                                        <div><span class="text-xs text-text-muted">EN:</span> {{ $resource->category->name_en }}</div>
+                                        @if($resource->category->name_ar)
+                                            <div dir="rtl"><span class="text-xs text-text-muted">AR:</span> {{ $resource->category->name_ar }}</div>
+                                        @endif
+                                    </div>
+                                @else
+                                    N/A
+                                @endif
+                            </td>
                             <td class="px-6 py-4 text-sm text-text">{{ $resource->view_count }}</td>
                             <td class="px-6 py-4 text-sm text-text"><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $resource->is_active ? 'bg-emerald-50 text-emerald-700' : 'bg-slate-100 text-slate-600' }}">{{ $resource->is_active ? 'Yes' : 'No' }}</span></td>
                             <td class="px-6 py-4 text-sm text-text">{{ $resource->published_at?->format('M d, Y') ?? 'Draft' }}</td>
