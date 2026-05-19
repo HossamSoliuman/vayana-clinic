@@ -44,6 +44,7 @@ use App\Http\Controllers\WorkshopsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/api/resources/by-category', [HomeController::class, 'getResourcesByCategory'])->name('api.resources.by-category');
 Route::get('/about', [AboutController::class, 'index'])->name('about');
 Route::get('/services', [ServicesController::class, 'index'])->name('services.index');
 Route::get('/services/{service:slug}', [ServicesController::class, 'show'])->name('services.show');

@@ -97,16 +97,26 @@
             <section class="mb-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h2 class="mb-0">{{ __('messages.resources') }}</h2>
-                    <div class="btn-group" role="group">
-                        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm active">{{ __('messages.all') }}</a>
-                        <a href="{{ route('resources.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('messages.view_all') }}</a>
-                    </div>
+                    <a href="{{ route('resources.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('messages.view_all') }}</a>
                 </div>
                 <p class="text-muted mb-4">{{ __('messages.resources_description', ['default' => 'At Vayana, we empower you with tools to understand yourself, manage emotions, and improve your mental well-being. Explore guided meditations, simplified articles, psychometric tests, and self-help books—all curated to support your journey, every day.']) }}</p>
 
-                <div class="row g-4">
+                <!-- Category Filter -->
+                <div class="mb-4 d-flex gap-2 flex-wrap" id="categoryFilter">
+                    <button class="btn btn-primary btn-sm active category-filter-btn" data-category="all">
+                        {{ __('messages.all') }}
+                    </button>
+                    @foreach ($resourceCategories as $category)
+                        <button class="btn btn-outline-primary btn-sm category-filter-btn" data-category="{{ $category->slug }}">
+                            {{ $category->localized_name }}
+                        </button>
+                    @endforeach
+                </div>
+
+                <!-- Resources Grid -->
+                <div class="row g-4" id="resourcesContainer">
                     @foreach ($latestResources as $resource)
-                        <div class="col-md-6 col-lg-4">
+                        <div class="col-md-6 col-lg-4 resource-card">
                             <div class="card h-100 border-0 shadow-sm">
                                 @if ($resource->thumbnail_image)
                                     <img src="{{ asset('storage/' . $resource->thumbnail_image) }}" class="card-img-top"
@@ -133,6 +143,14 @@
                         </div>
                     @endforeach
                 </div>
+
+                <!-- Loading Indicator -->
+                <div id="loadingSpinner" class="text-center mt-4" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+
                 <div class="text-center mt-4">
                     <a href="{{ route('resources.index') }}" class="btn btn-outline-primary">{{ __('messages.view_all') }}</a>
                 </div>
@@ -297,3 +315,87 @@
         @endif
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categoryButtons = document.querySelectorAll('.category-filter-btn');
+        const resourcesContainer = document.getElementById('resourcesContainer');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const category = this.getAttribute('data-category');
+
+                // Update active button state
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                if (category !== 'all') {
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
+                } else {
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
+                }
+
+                // Show loading spinner
+                loadingSpinner.style.display = 'block';
+                resourcesContainer.style.opacity = '0.5';
+
+                // Fetch resources
+                fetch(`{{ route('api.resources.by-category') }}?category=${category}&limit=6`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            renderResources(data.resources);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    })
+                    .finally(() => {
+                        loadingSpinner.style.display = 'none';
+                        resourcesContainer.style.opacity = '1';
+                    });
+            });
+        });
+
+        function renderResources(resources) {
+            resourcesContainer.innerHTML = '';
+
+            if (resources.length === 0) {
+                resourcesContainer.innerHTML = '<div class="col-12 text-center text-muted">No resources found.</div>';
+                return;
+            }
+
+            resources.forEach(resource => {
+                const resourceCard = document.createElement('div');
+                resourceCard.className = 'col-md-6 col-lg-4 resource-card';
+
+                const thumbnailHtml = resource.thumbnail
+                    ? `<img src="${resource.thumbnail}" class="card-img-top" style="height:180px;object-fit:cover">`
+                    : `<div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px">
+                        <i class="bi bi-book text-muted" style="font-size: 2rem;"></i>
+                    </div>`;
+
+                resourceCard.innerHTML = `
+                    <div class="card h-100 border-0 shadow-sm">
+                        ${thumbnailHtml}
+                        <div class="card-body d-flex flex-column">
+                            <div class="mb-2">
+                                <span class="badge bg-light text-dark">${resource.category}</span>
+                                ${resource.duration ? `<span class="badge bg-light text-dark ms-1"><i class="bi bi-clock"></i> ${resource.duration}</span>` : ''}
+                            </div>
+                            <h5 class="card-title">${resource.title}</h5>
+                            <p class="card-text text-muted small flex-grow-1">${resource.description}</p>
+                            <a href="/resources/${resource.slug}" class="btn btn-primary btn-sm mt-auto">{{ __('messages.access_resource', ['default' => 'Access Resource']) }} →</a>
+                        </div>
+                    </div>
+                `;
+
+                resourcesContainer.appendChild(resourceCard);
+            });
+        }
+    });
+</script>
+@endpush

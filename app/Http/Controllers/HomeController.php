@@ -8,10 +8,11 @@ use App\Models\MoodEntry;
 use App\Models\Partner;
 use App\Models\ProviderProfile;
 use App\Models\Resource;
+use App\Models\ResourceCategory;
 use App\Models\Service;
-use App\Models\TherapyProgram;
 use App\Models\Workshop;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -25,6 +26,7 @@ class HomeController extends Controller
         $upcomingWorkshops = Workshop::active()->open()->where('date_time', '>=', now())->orderBy('date_time')->take(3)->get();
         $journalPrompts = JournalPrompt::active()->orderBy('display_order')->take(3)->get();
         $moodInsights = MoodEntry::latest('entry_date')->take(6)->get();
+        $resourceCategories = ResourceCategory::active()->orderBy('display_order')->get();
 
         return view('home.index', compact(
             'partners',
@@ -34,7 +36,40 @@ class HomeController extends Controller
             'featuredReviews',
             'upcomingWorkshops',
             'journalPrompts',
-            'moodInsights'
+            'moodInsights',
+            'resourceCategories',
         ));
+    }
+
+    public function getResourcesByCategory(Request $request)
+    {
+        $category = $request->query('category');
+        $limit = $request->query('limit', 6);
+
+        $query = Resource::active()->published()->orderBy('published_at', 'desc');
+
+        if ($category && $category !== 'all') {
+            $query->whereHas('category', function ($q) use ($category) {
+                $q->where('slug', $category);
+            });
+        }
+
+        $resources = $query->take($limit)->get();
+
+        return response()->json([
+            'success' => true,
+            'resources' => $resources->map(function ($resource) {
+                return [
+                    'id' => $resource->id,
+                    'title' => $resource->localized_title,
+                    'description' => Str::limit($resource->localized_description, 100),
+                    'type' => $resource->type,
+                    'category' => $resource->category?->localized_name ?? ucfirst(str_replace('_', ' ', $resource->type)),
+                    'duration' => $resource->media_duration,
+                    'thumbnail' => $resource->thumbnail_image ? asset('storage/'.$resource->thumbnail_image) : null,
+                    'slug' => $resource->slug,
+                ];
+            }),
+        ]);
     }
 }
