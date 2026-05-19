@@ -95,34 +95,46 @@
 
         @if ($latestResources->count())
             <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.latest_resources') }}</h2>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="mb-0">{{ __('messages.resources') }}</h2>
+                    <div class="btn-group" role="group">
+                        <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm active">{{ __('messages.all') }}</a>
+                        <a href="{{ route('resources.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('messages.view_all') }}</a>
+                    </div>
+                </div>
+                <p class="text-muted mb-4">{{ __('messages.resources_description', ['default' => 'At Vayana, we empower you with tools to understand yourself, manage emotions, and improve your mental well-being. Explore guided meditations, simplified articles, psychometric tests, and self-help books—all curated to support your journey, every day.']) }}</p>
+
                 <div class="row g-4">
                     @foreach ($latestResources as $resource)
-                        <div class="col-md-4">
-                            <div class="card h-100">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card h-100 border-0 shadow-sm">
                                 @if ($resource->thumbnail_image)
                                     <img src="{{ asset('storage/' . $resource->thumbnail_image) }}" class="card-img-top"
-                                        style="height:200px;object-fit:cover">
+                                        style="height:180px;object-fit:cover">
+                                @else
+                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px">
+                                        <i class="bi bi-book text-muted" style="font-size: 2rem;"></i>
+                                    </div>
                                 @endif
                                 <div class="card-body d-flex flex-column">
-                                    <span class="badge bg-info mb-2"
-                                        style="width:fit-content">{{ ucfirst(str_replace('_', ' ', $resource->type)) }}</span>
-                                    <h5 class="card-title">{{ $resource->localized_title }}</h5>
-                                    <p class="card-text text-muted flex-grow-1">
-                                        {{ Str::limit($resource->localized_description, 100) }}</p>
-                                    <div class="d-flex justify-content-between align-items-center mt-auto">
-                                        <small class="text-muted"><i class="bi bi-eye"></i> {{ $resource->view_count }}
-                                            views</small>
-                                        <a href="{{ route('resources.show', $resource) }}"
-                                            class="btn btn-outline-primary btn-sm">{{ __('messages.read_more') }}</a>
+                                    <div class="mb-2">
+                                        <span class="badge bg-light text-dark">{{ $resource->category?->localized_name ?? ucfirst(str_replace('_', ' ', $resource->type)) }}</span>
+                                        @if ($resource->media_duration)
+                                            <span class="badge bg-light text-dark ms-1"><i class="bi bi-clock"></i> {{ $resource->media_duration }}</span>
+                                        @endif
                                     </div>
+                                    <h5 class="card-title">{{ $resource->localized_title }}</h5>
+                                    <p class="card-text text-muted small flex-grow-1">
+                                        {{ Str::limit($resource->localized_description, 100) }}</p>
+                                    <a href="{{ route('resources.show', $resource) }}"
+                                        class="btn btn-primary btn-sm mt-auto">{{ __('messages.access_resource', ['default' => 'Access Resource']) }} →</a>
                                 </div>
                             </div>
                         </div>
                     @endforeach
                 </div>
-                <div class="text-center mt-3">
-                    <a href="{{ route('resources.index') }}" class="btn btn-outline-primary">View All Resources</a>
+                <div class="text-center mt-4">
+                    <a href="{{ route('resources.index') }}" class="btn btn-outline-primary">{{ __('messages.view_all') }}</a>
                 </div>
             </section>
         @endif

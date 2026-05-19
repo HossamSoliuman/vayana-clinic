@@ -7,7 +7,12 @@
       "PowerShell(php artisan make:seeder ProviderSeeder --no-interaction)",
       "PowerShell(php artisan migrate:fresh --seed --no-interaction)",
       "mcp__laravel-boost__database-query",
-      "PowerShell(vendor/bin/pint --dirty --format agent)"
+      "PowerShell(vendor/bin/pint --dirty --format agent)",
+      "Bash(Get-ChildItem -Path \"D:\\\\projects\\\\vayana\\\\resources\\\\views\" -Recurse -Name)",
+      "Bash(Select-Object -First 20)",
+      "PowerShell(herd php:list *)",
+      "mcp__laravel-boost__get-absolute-url",
+      "mcp__laravel-boost__browser-logs"
     ]
   },
   "enableAllProjectMcpServers": true,

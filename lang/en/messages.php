@@ -295,4 +295,7 @@ return [
     'track_mood' => 'Track Mood',
     'edit_provider' => 'Edit Provider',
     'provider_updated' => 'Provider updated successfully.',
+    'view_all' => 'View All',
+    'access_resource' => 'Access Resource',
+    'resources_description' => 'At Vayana, we empower you with tools to understand yourself, manage emotions, and improve your mental well-being. Explore guided meditations, simplified articles, psychometric tests, and self-help books—all curated to support your journey, every day.',
 ];
