@@ -16,6 +16,29 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('faqs.index') }}">{{ __('messages.faqs') }}</a></li>
             </ul>
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <!-- Language Toggle -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-globe"></i>
+                        <span class="d-lg-inline d-none ms-1">
+                            {{ app()->getLocale() === 'ar' ? __('messages.arabic') : __('messages.english') }}
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li>
+                            <a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}"
+                                href="{{ route('language.switch', 'en') }}">
+                                <i class="bi bi-check-lg"></i> {{ __('messages.english') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}"
+                                href="{{ route('language.switch', 'ar') }}">
+                                <i class="bi bi-check-lg"></i> {{ __('messages.arabic') }}
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 @auth
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
