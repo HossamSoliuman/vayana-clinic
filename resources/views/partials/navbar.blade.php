@@ -1,69 +1,68 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="{{ route('home') }}">Vayana</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="mainNav">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('messages.home') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('about') }}">{{ __('messages.about') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('services.index') }}">{{ __('messages.services') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('providers.index') }}">{{ __('messages.providers') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('programs.index') }}">{{ __('messages.programs') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('resources.index') }}">{{ __('messages.resources') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('workshops.index') }}">{{ __('messages.workshops') }}</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('faqs.index') }}">{{ __('messages.faqs') }}</a></li>
-            </ul>
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <!-- Language Toggle -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <i class="bi bi-globe"></i>
-                        <span class="d-lg-inline d-none ms-1">
-                            {{ app()->getLocale() === 'ar' ? __('messages.arabic') : __('messages.english') }}
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li>
-                            <a class="dropdown-item {{ app()->getLocale() === 'en' ? 'active' : '' }}"
-                                href="{{ route('language.switch', 'en') }}">
-                                <i class="bi bi-check-lg"></i> {{ __('messages.english') }}
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item {{ app()->getLocale() === 'ar' ? 'active' : '' }}"
-                                href="{{ route('language.switch', 'ar') }}">
-                                <i class="bi bi-check-lg"></i> {{ __('messages.arabic') }}
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                @auth
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            {{ auth()->user()->full_name }}
+<header class="site-header" data-site-header>
+    <nav class="site-nav" aria-label="Primary">
+        <div class="site-nav__inner">
+            <a class="site-nav__brand" href="{{ route('home') }}" aria-label="Vayana Home">
+                <img src="{{ asset('images/logo.png') }}" alt="Vayana" width="160" height="44" decoding="async">
+            </a>
+
+            <button class="site-nav__toggle" type="button" data-nav-toggle aria-label="Open menu" aria-controls="siteNavPanel" aria-expanded="false">
+                <span class="site-nav__toggle-bars" aria-hidden="true"></span>
+            </button>
+
+            <div class="site-nav__panel" id="siteNavPanel" data-nav-panel>
+                <div class="site-nav__panel-head">
+                    <span class="site-nav__panel-title">Menu</span>
+                    <button class="site-nav__close" type="button" data-nav-close aria-label="Close menu">×</button>
+                </div>
+
+                <ul class="site-nav__links">
+                    <li><a class="site-nav__link" href="{{ route('about') }}">{{ __('messages.about') }}</a></li>
+                    <li><a class="site-nav__link" href="{{ route('services.index') }}">{{ __('messages.services') }}</a></li>
+                    <li><a class="site-nav__link" href="{{ route('providers.index') }}">{{ __('messages.providers') }}</a></li>
+                    <li><a class="site-nav__link" href="{{ route('resources.index') }}">{{ __('messages.resources') }}</a></li>
+                    <li><a class="site-nav__link" href="{{ route('journal.index') }}">{{ __('messages.journal') }}</a></li>
+                    <li><a class="site-nav__link" href="{{ route('business.index') }}">{{ __('messages.for_business') }}</a></li>
+                </ul>
+
+                <div class="site-nav__actions">
+                    <div class="lang-switch" role="group" aria-label="Language switch">
+                        <a class="lang-switch__opt {{ app()->getLocale() === 'en' ? 'is-active' : '' }}" href="{{ route('language.switch', 'en') }}">EN</a>
+                        <a class="lang-switch__opt {{ app()->getLocale() === 'ar' ? 'is-active' : '' }}" href="{{ route('language.switch', 'ar') }}">عربي</a>
+                    </div>
+
+                    @auth
+                        <div class="site-nav__user">
+                            <button class="site-nav__user-btn" type="button" data-user-toggle aria-expanded="false">
+                                {{ auth()->user()->full_name }}
+                                <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <div class="site-nav__user-menu" data-user-menu>
+                                <a class="site-nav__user-item" href="{{ route('dashboard') }}">{{ __('messages.dashboard') }}</a>
+                                <a class="site-nav__user-item" href="{{ route('profile.edit') }}">{{ __('messages.profile') }}</a>
+                                @if (in_array(auth()->user()->role, ['admin', 'super_admin']))
+                                    <a class="site-nav__user-item" href="{{ route('admin.dashboard') }}">{{ __('messages.admin_panel') }}</a>
+                                @endif
+                                <!-- Form container wrapped cleanly to secure mobile flex heights -->
+                                <div class="site-nav__user-logout-wrapper">
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="site-nav__user-item site-nav__user-item--danger">{{ __('messages.logout') }}</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @else
+                        <a class="site-nav__text" href="{{ route('login') }}">{{ __('messages.login') }}</a>
+                        <a class="site-nav__btn" href="{{ route('join-us.index') }}">
+                            {{ __('messages.join_us') }}
+                            <span aria-hidden="true">↗</span>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="bi bi-speedometer2"></i> {{ __('messages.dashboard') }}</a></li>
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}"><i class="bi bi-person"></i> {{ __('messages.profile') }}</a></li>
-                            @if(in_array(auth()->user()->role, ['admin', 'super_admin']))
-                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock"></i> {{ __('messages.admin_panel') }}</a></li>
-                            @endif
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item"><i class="bi bi-box-arrow-right"></i> {{ __('messages.logout') }}</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @else
-                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">{{ __('messages.login') }}</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">{{ __('messages.register') }}</a></li>
-                @endauth
-            </ul>
+                    @endauth
+                </div>
+            </div>
         </div>
-    </div>
-</nav>
+
+        <!-- Positioned right behind the action drawer to fix backdrop rendering order -->
+        <div class="site-nav__backdrop" data-nav-backdrop hidden></div>
+    </nav>
+</header>

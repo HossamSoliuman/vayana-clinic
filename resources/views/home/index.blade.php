@@ -3,399 +3,297 @@
 @section('title', 'Home')
 
 @section('content')
-    <div class="container py-5">
-        <div class="text-center mb-5">
-            <h1>{{ __('messages.welcome') }}</h1>
-            <p class="lead">Mental Health & Wellness Platform</p>
-            <a href="{{ route('services.index') }}" class="btn btn-primary">{{ __('messages.explore_services') }}</a>
-        </div>
+    <div class="home" data-page="home">
+        <section class="home-hero" aria-label="Hero">
+            <div class="home-container home-hero__grid">
+                <div class="home-hero__content" data-reveal>
+                    <p class="home-hero__kicker">Start your wellness journey</p>
+                    <h1 class="home-hero__title">
+                        For every stable mind... a sanctuary. Your journey toward <span class="home-hero__title-highlight">tranquility starts here.</span>
+                    </h1>
+                    <p class="home-hero__subtitle">
+                        Access professional psychological care from trusted, certified therapists—anytime, anywhere.
+                    </p>
+
+                    <div class="home-hero__cta">
+                        <a class="home-btn home-btn--primary" href="{{ route('services.index') }}">
+                            Book Instant Session
+                            <span aria-hidden="true" class="home-btn__icon">→</span>
+                        </a>
+
+                        <a class="store-badge" href="#" aria-label="Get it on Google Play">
+                            <span class="store-badge__icon" aria-hidden="true">
+                            <img src="{{ asset('images/home/google_play.png') }}" alt="google paly" loading="lazy" decoding="async">
+                            </span>
+                            <span class="store-badge__text">
+                                <span class="store-badge__small">GET IT ON</span>
+                                <span class="store-badge__big">Google Play</span>
+                            </span>
+                        </a>
+
+                        <a class="store-badge" href="#" aria-label="Download on the App Store">
+                            <span class="store-badge__icon" aria-hidden="true">
+                                <img src="{{ asset('images/home/apple.png') }}" alt="Apple" loading="lazy" decoding="async">
+                            </span>
+                            <span class="store-badge__text">
+                                <span class="store-badge__small">Download on the</span>
+                                <span class="store-badge__big">App Store</span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="home-hero__visual" aria-hidden="true" data-reveal>
+                     <img src="{{ asset('images/home/Phone.png') }}" alt="Phone" loading="lazy" decoding="async">
+                </div>
+
+            </div>
+        </section>
+
         @if ($partners->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.our_partners') }}</h2>
-                <div class="row g-4 align-items-center">
-                    @foreach ($partners as $partner)
-                        <div class="col-6 col-md-3 text-center">
-                            @if ($partner->logo_path)
-                                <a target="_blank" href="{{ $partner->website_url }}">
-                                    <img src="{{ asset('storage/' . $partner->logo_path) }}" alt="{{ $partner->name }}"
-                                        class="img-fluid" style="max-height:60px">
-                                </a>
-                            @else
-                                <span class="fw-bold">{{ $partner->name }}</span>
-                            @endif
-                        </div>
-                    @endforeach
+            <section class="home-strip" aria-label="Partners">
+                <div class="home-container">
+                    <div class="home-strip__row">
+                        @foreach ($partners as $partner)
+                            <div class="home-strip__item">
+                                @if ($partner->logo_path)
+                                    <a target="_blank" rel="noreferrer" href="{{ $partner->website_url }}">
+                                        <img src="{{ asset('storage/' . $partner->logo_path) }}" alt="{{ $partner->name }}" loading="lazy" decoding="async">
+                                    </a>
+                                @else
+                                    <span class="home-strip__text">{{ $partner->name }}</span>
+                                @endif
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </section>
         @endif
+
         @if ($featuredServices->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.our_services') }}</h2>
-                <div class="row g-4">
-                    @foreach ($featuredServices as $service)
-                        <div class="col-md-3">
-                            <div class="card h-100">
-                                @if ($service->image)
-                                    <img src="{{ asset('storage/' . $service->image) }}" class="card-img-top"
-                                        style="height:150px;object-fit:cover">
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $service->localized_name }}</h5>
-                                    <p class="card-text">{{ Str::limit($service->localized_description, 80) }}</p>
-                                    <a href="{{ route('services.show', $service) }}"
-                                        class="btn btn-outline-primary btn-sm">{{ __('messages.learn_more') }}</a>
-                                </div>
+            <section style="background-image: url('{{ asset('images/services-BG.png') }}'); background-size: cover; background-position: center;background-repeat: no-repeat;" class="home-section" id="services" aria-label="Services">
+                <div class="home-container">
+                    <header class="home-section__head">
+
+                            <div class="section-header">
+                            <h2 class="home-h2">Services</h2>
+                            <div class="header-line"></div>
                             </div>
+                            <p class="home-p">
+                                At Vayana we offer a comprehensive selection of psychological services tailored to your unique needs—from therapy sessions to personal growth programs. Wherever you are, whenever you need it, we’re here to walk with you toward inner peace.
+                            </p>
+
+                    </header>
+
+                    <div class="home-carousel" data-carousel="services">
+                    <div class="w-full flex justify-end">
+                    <a class="home-link" href="{{ route('services.index') }}">View All <span aria-hidden="true">→</span></a>
+                    </div>
+
+                        <div class="home-carousel__track" role="list">
+                            @foreach ($featuredServices as $service)
+                                <article class="svc-card" href="{{ route('services.show', $service) }}" role="listitem" data-reveal>
+                                    <div class="svc-card__icon" aria-hidden="true"><i class="bi bi-brain"></i></div>
+                                    <h3 class="svc-card__title">{{ $service->localized_name }}</h3>
+                                    <p class="svc-card__text">{{ Str::limit($service->localized_description, 120) }}</p>
+                                </article>
+                            @endforeach
                         </div>
-                    @endforeach
-                </div>
-                <div class="text-center mt-3">
-                    <a href="{{ route('services.index') }}"
-                        class="btn btn-outline-primary">{{ __('messages.view_all_services') }}</a>
+                    </div>
                 </div>
             </section>
         @endif
 
         @if ($featuredProviders->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.our_providers') }}</h2>
-                <div class="row g-4">
-                    @foreach ($featuredProviders as $provider)
-                        <div class="col-md-4">
-                            <div class="card h-100">
-                                @if($provider->photo_path)
-                                    <img src="{{ asset('storage/'.$provider->photo_path) }}" class="card-img-top" style="height:200px;object-fit:cover">
-                                @else
-                                    <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height:200px">
-                                        <i class="bi bi-person-circle text-white" style="font-size: 3rem;"></i>
-                                    </div>
-                                @endif
-                                <div class="card-body d-flex flex-column">
-                                    <h5 class="card-title">{{ $provider->user?->full_name }}</h5>
-                                    <p class="text-muted">{{ $provider->title }} |
-                                        {{ $provider->specialties->pluck('name_en')->implode(', ') }}</p>
-                                    <p class="flex-grow-1">{{ Str::limit($provider->biography_en, 100) }}</p>
-                                    <div class="d-flex justify-content-between align-items-center mt-auto">
-                                        <span class="badge bg-success">{{ $provider->rating_average }} <i
-                                                class="bi bi-star-fill"></i></span>
-                                        <a href="{{ route('providers.show', $provider->id) }}"
-                                            class="btn btn-sm btn-outline-primary">{{ __('messages.view_profile') }}</a>
-                                    </div>
-                                </div>
+            <section class="home-feature" aria-label="Featured Therapist">
+                <div class="home-container">
+                <header class="home-section__head">
+                    <div class="section-header">
+                            <h2 class="home-h2">Featured Therapist</h2>
+                            <div class="header-line"></div>
                             </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="text-center mt-3">
-                    <a href="{{ route('providers.index') }}"
-                        class="btn btn-outline-primary">{{ __('messages.view_all_providers') }}</a>
+                        <p class="home-p">At Vayana we believe your journey to balance begins  with the right choice. Explore a carefully selected team  of certified psychologists and psychiatrists, and start  your healing journey with confidence. Browse expert profiles and book  the session that fits your needs.</p>
+                </header>
+                <div class="w-full flex justify-end">
+                    <a class="home-link" href="{{ route('services.index') }}">View All <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="home-feature__cards">
+
+                        @foreach ($featuredProviders->take(1) as $provider)
+                            <article class="pro-card" data-reveal>
+                                <div class="pro-card__media">
+                                    @if ($provider->photo_path)
+                                        <img src="{{ asset('storage/' . $provider->photo_path) }}" alt="{{ $provider->user?->full_name }}" loading="lazy" decoding="async">
+                                    @else
+                                        <div class="pro-card__placeholder" aria-hidden="true"><i class="bi bi-person-circle"></i></div>
+                                    @endif
+                                </div>
+                                <div class="pro-card__body">
+                                    <div class="pro-card__top">
+                                        <div>
+                                            <h3 class="pro-card__name">{{ $provider->user?->full_name }}</h3>
+                                            <p class="pro-card__meta">{{ $provider->title }}</p>
+                                        </div>
+                                        <div class="pro-card__rating"><i class="bi bi-star-fill"></i> <span>{{ $provider->rating_average }}</span></div>
+                                    </div>
+                                    <p class="pro-card__bio">{{ Str::limit($provider->biography_en, 140) }}</p>
+                                    <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('providers.show', $provider->id) }}">View Profile <span aria-hidden="true">→</span></a>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
                 </div>
             </section>
         @endif
 
         @if ($latestResources->count())
-            <section class="mb-5">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h2 class="mb-0">{{ __('messages.resources') }}</h2>
-                    <a href="{{ route('resources.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('messages.view_all') }}</a>
-                </div>
-                <p class="text-muted mb-4">{{ __('messages.resources_description', ['default' => 'At Vayana, we empower you with tools to understand yourself, manage emotions, and improve your mental well-being. Explore guided meditations, simplified articles, psychometric tests, and self-help books—all curated to support your journey, every day.']) }}</p>
+            <section style="background-image: url('{{ asset('images/resources-bg.png') }}'); background-size: cover; background-position: center;background-repeat: no-repeat;" class="home-section home-section--dark" id="resources" aria-label="Resources">
+                <div class="home-container">
+                    <header class="home-section__head home-section__head--light">
 
-                <!-- Category Filter -->
-                <div class="mb-4 d-flex gap-2 flex-wrap" id="categoryFilter">
-                    <button class="btn btn-primary btn-sm active category-filter-btn" data-category="all">
-                        {{ __('messages.all') }}
-                    </button>
-                    @foreach ($resourceCategories as $category)
-                        <button class="btn btn-outline-primary btn-sm category-filter-btn" data-category="{{ $category->slug }}">
-                            {{ $category->localized_name }}
-                        </button>
-                    @endforeach
-                </div>
+                        <div class="section-header">
+                            <h2 class="home-h2 home-h2--light">Resources</h2>
+                            <div class="header-line header-line-light"></div>
+                            </div>
+                            <p class="home-p home-p--light">
+                                At Vayana, we empower you with tools to understand yourself, manage emotions, and improve your mental well-being. Explore guided meditations, simplified articles, psychometric tests, and self-help books—all curated to support your journey, every day.
+                            </p>
 
-                <!-- Resources Grid -->
-                <div class="row g-4" id="resourcesContainer">
-                    @foreach ($latestResources as $resource)
-                        <div class="col-md-6 col-lg-4 resource-card">
-                            <div class="card h-100 border-0 shadow-sm">
-                                @if ($resource->thumbnail_image)
-                                    <img src="{{ asset('storage/' . $resource->thumbnail_image) }}" class="card-img-top"
-                                        style="height:180px;object-fit:cover">
-                                @else
-                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px">
-                                        <i class="bi bi-book text-muted" style="font-size: 2rem;"></i>
-                                    </div>
-                                @endif
-                                <div class="card-body d-flex flex-column">
-                                    <div class="mb-2">
-                                        <span class="badge bg-light text-dark">{{ $resource->category?->localized_name ?? ucfirst(str_replace('_', ' ', $resource->type)) }}</span>
+                    </header>
+
+
+                    <div class="home-tabs" id="categoryFilter" role="tablist" aria-label="Resource categories">
+                        <button class="home-tab is-active category-filter-btn" type="button" data-category="all" role="tab" aria-selected="true">All</button>
+                        @foreach ($resourceCategories as $category)
+                            <button class="home-tab category-filter-btn" type="button" data-category="{{ $category->slug }}" role="tab" aria-selected="false">{{ $category->localized_name }}</button>
+                        @endforeach
+                    </div>
+                    <div class="w-full flex justify-end">
+                    <a class="home-link home-link--light" href="{{ route('resources.index') }}">View All <span aria-hidden="true">→</span></a>
+                    </div>
+                    <div class="home-grid" id="resourcesContainer" data-endpoint="{{ route('api.resources.by-category') }}">
+
+                        @foreach ($latestResources as $resource)
+                            <article class="res-card resource-card" data-reveal>
+                                <div class="res-card__media">
+                                    @if ($resource->thumbnail_image)
+                                        <img src="{{ asset('storage/' . $resource->thumbnail_image) }}" alt="{{ $resource->localized_title }}" loading="lazy" decoding="async">
+                                    @else
+                                        <div class="res-card__placeholder" aria-hidden="true"><i class="bi bi-book"></i></div>
+                                    @endif
+                                    <div class="res-card__chips">
+                                        <span class="chip">{{ $resource->category?->localized_name ?? ucfirst(str_replace('_', ' ', $resource->type)) }}</span>
                                         @if ($resource->media_duration)
-                                            <span class="badge bg-light text-dark ms-1"><i class="bi bi-clock"></i> {{ $resource->media_duration }}</span>
+                                            <span class="chip"><i class="bi bi-clock"></i> {{ $resource->media_duration }}</span>
                                         @endif
                                     </div>
-                                    <h5 class="card-title">{{ $resource->localized_title }}</h5>
-                                    <p class="card-text text-muted small flex-grow-1">
-                                        {{ Str::limit($resource->localized_description, 100) }}</p>
-                                    <a href="{{ route('resources.show', $resource) }}"
-                                        class="btn btn-primary btn-sm mt-auto">{{ __('messages.access_resource', ['default' => 'Access Resource']) }} →</a>
                                 </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
+                                <div class="res-card__body">
+                                    <h3 class="res-card__title">{{ $resource->localized_title }}</h3>
+                                    <p class="res-card__text">{{ Str::limit($resource->localized_description, 120) }}</p>
+                                    <a class="res-card-btn" href="{{ route('resources.show', $resource) }}">Access resource <span aria-hidden="true">→</span></a>
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
 
-                <!-- Loading Indicator -->
-                <div id="loadingSpinner" class="text-center mt-4" style="display: none;">
-                    <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
+                    <div id="loadingSpinner" class="home-loading" style="display:none" aria-live="polite">
+                        <span class="home-loading__dot"></span><span class="home-loading__dot"></span><span class="home-loading__dot"></span>
                     </div>
                 </div>
-
-                <div class="text-center mt-4">
-                    <a href="{{ route('resources.index') }}" class="btn btn-outline-primary">{{ __('messages.view_all') }}</a>
-                </div>
             </section>
         @endif
 
-        @if ($upcomingWorkshops->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.upcoming_workshops') }}</h2>
-                <div class="row g-4">
-                    @foreach ($upcomingWorkshops as $workshop)
-                        <div class="col-md-4">
-                            <div class="card">
-                                @if ($workshop->image)
-                                    <img src="{{ asset('storage/' . $workshop->image) }}" class="card-img-top"
-                                        style="height:150px;object-fit:cover">
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ $workshop->localized_title }}</h5>
-                                    <p class="text-muted"><i class="bi bi-calendar"></i>
-                                        {{ $workshop->date_time?->format('M d, Y') ?? 'TBA' }}</p>
-                                    <p class="text-muted"><i class="bi bi-geo-alt"></i> {{ $workshop->location }}</p>
-                                    <a href="{{ route('workshops.show', $workshop) }}"
-                                        class="btn btn-outline-primary btn-sm">{{ __('messages.register_interest') }}</a>
-                                </div>
+        <section class="home-section" id="journal" aria-label="Journal and insights">
+            <div class="home-container">
+                <header class="home-section__head">
+                <div class="section-header">
+                            <h2 class="home-h2">Journal &amp; Insights</h2>
+                            <div class="header-line"></div>
                             </div>
+                    <div>
+
+                        <p class="home-p">Track your progress, reflect daily, and unlock insights.</p>
+                    </div>
+
+                </header>
+                 @auth
+                 <div class="w-full flex justify-end">
+                        <a class="home-link" href="{{ route('journal.index') }}">View All <span aria-hidden="true">→</span></a>
+                 </div>
+                    @else
+                        <a class="home-link" href="{{ route('login') }}">Login <span aria-hidden="true">→</span></a>
+                    @endauth
+                <div class="home-grid home-grid--2">
+
+                    @if ($journalPrompts->count())
+                        @foreach ($journalPrompts->take(2) as $prompt)
+                            <article class="ins-card" data-reveal>
+                                <div class="ins-card__icon" aria-hidden="true"><i class="bi bi-journal-text"></i></div>
+                                <div class="ins-card__body">
+                                    <h3 class="ins-card__title">{{ $prompt->localized_text }}</h3>
+                                    <p class="ins-card__text">Daily prompts &amp; exercises</p>
+                                    @auth
+                                        <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('journal.index') }}">Start Tracking</a>
+                                    @else
+                                        <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('register') }}">Register</a>
+                                    @endauth
+                                </div>
+                            </article>
+                        @endforeach
+                    @else
+                        <article class="ins-card" data-reveal>
+                            <div class="ins-card__icon" aria-hidden="true"><i class="bi bi-journal-text"></i></div>
+                            <div class="ins-card__body">
+                                <h3 class="ins-card__title">Your private journal</h3>
+                                <p class="ins-card__text">Daily prompts &amp; exercises</p>
+                                <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('register') }}">Start Tracking</a>
+                            </div>
+                        </article>
+                    @endif
+
+                    <article class="ins-card" data-reveal>
+                        <div class="ins-card__icon" aria-hidden="true"><i class="bi bi-activity"></i></div>
+                        <div class="ins-card__body">
+                            <h3 class="ins-card__title">Mood Tracker</h3>
+                            <p class="ins-card__text">See patterns, trends, and progress insights.</p>
+                            @auth
+                                <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('mood-tracker.index') }}">Start Tracking</a>
+                            @else
+                                <a class="home-btn home-btn--primary home-btn--sm" href="{{ route('login') }}">Login</a>
+                            @endauth
                         </div>
-                    @endforeach
+                    </article>
                 </div>
-            </section>
-        @endif
+            </div>
+        </section>
 
         @if ($featuredReviews->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.client_reviews') }}</h2>
-                <div class="row g-4">
-                    @foreach ($featuredReviews as $review)
-                        <div class="col-md-4">
-                            <div class="card bg-light">
-                                <div class="card-body">
-                                    <div class="mb-2">
-                                        @for ($i = 1; $i <= 5; $i++)
-                                            <i
-                                                class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }} text-warning"></i>
-                                        @endfor
-                                    </div>
-                                    <p class="card-text">"{{ $review->review_text_en }}"</p>
-                                    <p class="text-muted mb-0">- {{ $review->client_name }}</p>
-                                </div>
-                            </div>
+            <section class="home-section" aria-label="Client reviews">
+                <div class="home-container">
+                    <header class="home-section__head">
+                        <div>
+                            <h2 class="home-h2">Client Reviews</h2>
+                            <p class="home-p">Loved by people who prioritize their wellbeing.</p>
                         </div>
-                    @endforeach
-                </div>
-            </section>
-        @endif
+                    </header>
 
-        @if ($journalPrompts->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.journal') }}</h2>
-                <div class="row g-4">
-                    @foreach ($journalPrompts as $prompt)
-                        <div class="col-md-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <span class="badge bg-secondary mb-2">{{ ucfirst($prompt->category) }}</span>
-                                    <h5 class="card-title">{{ $prompt->localized_text }}</h5>
-                                    <p class="text-muted text-sm">{{ __('messages.journal') }}</p>
+                    <div class="home-grid home-grid--3">
+                        @foreach ($featuredReviews->take(3) as $review)
+                            <article class="rev-card" data-reveal>
+                                <div class="rev-card__stars" aria-label="{{ $review->rating }} out of 5 stars">
+                                    @for ($i = 1; $i <= 5; $i++)
+                                        <i class="bi bi-star{{ $i <= $review->rating ? '-fill' : '' }}"></i>
+                                    @endfor
                                 </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-                <div class="text-center mt-3">
-                    @auth
-                        <a href="{{ route('journal.index') }}"
-                            class="btn btn-outline-primary">{{ __('messages.my_journal') }}</a>
-                    @else
-                        <a href="{{ route('register') }}" class="btn btn-outline-primary">{{ __('messages.register') }}</a>
-                    @endauth
-                </div>
-            </section>
-        @endif
-
-        @if ($moodInsights->count())
-            <section class="mb-5">
-                <h2 class="mb-4">{{ __('messages.mood_tracker') }}</h2>
-                <div class="row g-4">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Recent Mood Entries</h5>
-                                <div class="list-group list-group-flush">
-                                    @foreach ($moodInsights->take(4) as $mood)
-                                        <div class="list-group-item d-flex justify-content-between align-items-center">
-                                            <div>
-                                                <p class="mb-1">{{ $mood->mood_label ?? 'Mood Entry' }}</p>
-                                                <small
-                                                    class="text-muted">{{ $mood->entry_date?->format('M d, Y') }}</small>
-                                            </div>
-                                            <div>
-                                                @for ($i = 1; $i <= 5; $i++)
-                                                    <i class="bi bi-heart{{ $i <= $mood->mood_score ? '-fill' : '' }} text-danger"
-                                                        style="font-size: 0.8rem;"></i>
-                                                @endfor
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                @auth
-                                    <a href="{{ route('mood-tracker.index') }}"
-                                        class="btn btn-outline-primary btn-sm mt-3">{{ __('messages.view_details') }}</a>
-                                @endauth
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title mb-3">Mood Insights</h5>
-                                @auth
-                                    @php
-                                        $thisWeekMoods = $moodInsights->whereBetween('entry_date', [
-                                            now()->startOfWeek(),
-                                            now()->endOfWeek(),
-                                        ]);
-                                        $thisMonthMoods = $moodInsights
-                                            ->whereMonth('entry_date', now()->month)
-                                            ->whereYear('entry_date', now()->year);
-                                        $avgWeek = $thisWeekMoods->avg('mood_score');
-                                        $avgMonth = $thisMonthMoods->avg('mood_score');
-                                    @endphp
-                                    <div class="mb-3">
-                                        <p class="mb-1"><strong>This Week Average</strong></p>
-                                        <div class="progress" style="height: 20px;">
-                                            <div class="progress-bar bg-info" role="progressbar"
-                                                style="width: {{ ($avgWeek / 5) * 100 }}%;"
-                                                aria-valuenow="{{ $avgWeek }}" aria-valuemin="0" aria-valuemax="5">
-                                                {{ round($avgWeek, 1) ?? 'N/A' }}</div>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <p class="mb-1"><strong>This Month Average</strong></p>
-                                        <div class="progress" style="height: 20px;">
-                                            <div class="progress-bar bg-warning" role="progressbar"
-                                                style="width: {{ ($avgMonth / 5) * 100 }}%;"
-                                                aria-valuenow="{{ $avgMonth }}" aria-valuemin="0" aria-valuemax="5">
-                                                {{ round($avgMonth, 1) ?? 'N/A' }}</div>
-                                        </div>
-                                    </div>
-                                    <a href="{{ route('mood-tracker.index') }}"
-                                        class="btn btn-outline-primary btn-sm">{{ __('messages.track_mood') }}</a>
-                                @else
-                                    <p class="text-muted">{{ __('messages.login') }} to track your mood and get insights.</p>
-                                    <a href="{{ route('login') }}"
-                                        class="btn btn-outline-primary btn-sm">{{ __('messages.login') }}</a>
-                                @endauth
-                            </div>
-                        </div>
+                                <p class="rev-card__text">“{{ $review->review_text_en }}”</p>
+                                <p class="rev-card__name">— {{ $review->client_name }}</p>
+                            </article>
+                        @endforeach
                     </div>
                 </div>
             </section>
         @endif
+
     </div>
 @endsection
-
-@push('scripts')
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const categoryButtons = document.querySelectorAll('.category-filter-btn');
-        const resourcesContainer = document.getElementById('resourcesContainer');
-        const loadingSpinner = document.getElementById('loadingSpinner');
-
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                const category = this.getAttribute('data-category');
-
-                // Update active button state
-                categoryButtons.forEach(btn => btn.classList.remove('active'));
-                this.classList.add('active');
-                if (category !== 'all') {
-                    this.classList.remove('btn-outline-primary');
-                    this.classList.add('btn-primary');
-                } else {
-                    this.classList.remove('btn-outline-primary');
-                    this.classList.add('btn-primary');
-                }
-
-                // Show loading spinner
-                loadingSpinner.style.display = 'block';
-                resourcesContainer.style.opacity = '0.5';
-
-                // Fetch resources
-                fetch(`{{ route('api.resources.by-category') }}?category=${category}&limit=6`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            renderResources(data.resources);
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                    })
-                    .finally(() => {
-                        loadingSpinner.style.display = 'none';
-                        resourcesContainer.style.opacity = '1';
-                    });
-            });
-        });
-
-        function renderResources(resources) {
-            resourcesContainer.innerHTML = '';
-
-            if (resources.length === 0) {
-                resourcesContainer.innerHTML = '<div class="col-12 text-center text-muted">No resources found.</div>';
-                return;
-            }
-
-            resources.forEach(resource => {
-                const resourceCard = document.createElement('div');
-                resourceCard.className = 'col-md-6 col-lg-4 resource-card';
-
-                const thumbnailHtml = resource.thumbnail
-                    ? `<img src="${resource.thumbnail}" class="card-img-top" style="height:180px;object-fit:cover">`
-                    : `<div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height:180px">
-                        <i class="bi bi-book text-muted" style="font-size: 2rem;"></i>
-                    </div>`;
-
-                resourceCard.innerHTML = `
-                    <div class="card h-100 border-0 shadow-sm">
-                        ${thumbnailHtml}
-                        <div class="card-body d-flex flex-column">
-                            <div class="mb-2">
-                                <span class="badge bg-light text-dark">${resource.category}</span>
-                                ${resource.duration ? `<span class="badge bg-light text-dark ms-1"><i class="bi bi-clock"></i> ${resource.duration}</span>` : ''}
-                            </div>
-                            <h5 class="card-title">${resource.title}</h5>
-                            <p class="card-text text-muted small flex-grow-1">${resource.description}</p>
-                            <a href="/resources/${resource.slug}" class="btn btn-primary btn-sm mt-auto">{{ __('messages.access_resource', ['default' => 'Access Resource']) }} →</a>
-                        </div>
-                    </div>
-                `;
-
-                resourcesContainer.appendChild(resourceCard);
-            });
-        }
-    });
-</script>
-@endpush

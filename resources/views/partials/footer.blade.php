@@ -1,30 +1,54 @@
-<footer class="bg-light border-top mt-5 py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>Vayana</h5>
-                <p class="text-muted small">{{ App\Models\SiteSetting::get('footer_description_' . app()->getLocale(), 'Mental Health & Wellness Platform') }}</p>
-            </div>
-            <div class="col-md-4">
-                <h6>Quick Links</h6>
-                <ul class="list-unstyled small">
-                    <li><a href="{{ route('services.index') }}" class="text-decoration-none text-muted">{{ __('messages.services') }}</a></li>
-                    <li><a href="{{ route('providers.index') }}" class="text-decoration-none text-muted">{{ __('messages.providers') }}</a></li>
-                    <li><a href="{{ route('join-us.index') }}" class="text-decoration-none text-muted">{{ __('messages.join_us') }}</a></li>
-                    <li><a href="{{ route('faqs.index') }}" class="text-decoration-none text-muted">{{ __('messages.faqs') }}</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h6>Contact</h6>
-                <ul class="list-unstyled small text-muted">
-                    <li><i class="bi bi-envelope"></i> {{ App\Models\SiteSetting::get('contact_email', 'info@vayana.sa') }}</li>
-                    <li><i class="bi bi-telephone"></i> {{ App\Models\SiteSetting::get('contact_phone', '') }}</li>
-                </ul>
+<footer style="background-image: url('{{ asset('images/footer/footer_bg.png') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;" class="site-footer" aria-label="Footer">
+    <div class="site-footer__bg" aria-hidden="true"></div>
+
+    <div class="site-footer__inner">
+        <!-- Logo + Social -->
+        <div class="site-footer__top">
+            <div class="site-footer__brand">
+                <img src="{{ asset('images/footer/logo_footer.png') }}" alt="Vayana" width="120" height="56">
+
+                <div class="site-footer__social" aria-label="Social links">
+                    <a href="#" aria-label="Visit our Facebook page">
+                        <img src="{{ asset('images/footer/facebook.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                    <a href="#" aria-label="Visit our Instagram profile">
+                        <img src="{{ asset('images/footer/instagram.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                    <a href="#" aria-label="Visit our LinkedIn profile">
+                        <img src="{{ asset('images/footer/linkedin.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                    <a href="#" aria-label="Visit our YouTube channel">
+                        <img src="{{ asset('images/footer/youtube.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                    <a href="#" aria-label="Visit our Snapchat profile">
+                        <img src="{{ asset('images/footer/mage_snapchat.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                    <a href="#" aria-label="Visit our TikTok channel">
+                        <img src="{{ asset('images/footer/tiktok.png') }}" alt="" width="24" height="24" loading="lazy" decoding="async">
+                    </a>
+                </div>
             </div>
         </div>
-        <hr>
-        <div class="text-center small text-muted">
-            &copy; {{ date('Y') }} Vayana. All rights reserved.
+
+        <!-- Horizontal Links Row -->
+        <nav class="site-footer__nav" aria-label="Footer navigation">
+            <ul class="site-footer__nav-list">
+                <li><a href="{{ route('faqs.index') }}">FAQ</a></li>
+                <li><a href="#">Subscription</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Cookies</a></li>
+                <li><a href="{{ route('about') }}">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Description -->
+        <p class="site-footer__desc">
+            {{ App\Models\SiteSetting::get('footer_description_' . app()->getLocale(), 'Vayana is dedicated to supporting mental health and well-being. We connect individuals with trusted therapists and safe spaces. Your journey to healing and growth starts here.') }}
+        </p>
+
+        <!-- Bottom Copyright -->
+        <div class="site-footer__bottom">
+            <p>© {{ date('Y') }} Vayana. All Rights Reserved</p>
         </div>
     </div>
 </footer>
